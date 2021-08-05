@@ -1,12 +1,19 @@
 from django.shortcuts import render
 from rest_framework import viewsets, status
 from .models import Rating, Meal
-from .serializers import RatingSerializer, MealSerializer
+from .serializers import RatingSerializer, MealSerializer, UserSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (AllowAny, )
+
 
 class MealViewSet(viewsets.ModelViewSet):
     queryset = Meal.objects.all()
