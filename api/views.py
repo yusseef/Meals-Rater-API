@@ -5,10 +5,14 @@ from .serializers import RatingSerializer, MealSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.contrib.auth.models import User
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, IsAuthenticatedOrReadOnly
+
 class MealViewSet(viewsets.ModelViewSet):
     queryset = Meal.objects.all()
     serializer_class  = MealSerializer
-
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )
     @action(methods=['POST'], detail=True)
     def rate_meal(self, request, pk=None):
         if 'stars' in request.data:
@@ -17,8 +21,8 @@ class MealViewSet(viewsets.ModelViewSet):
             '''
             meal = Meal.objects.get(pk=pk)
             stars = request.data['stars']
-            username = request.data['username']
-            user = User.objects.get(username=username)
+            user = request.user
+
             try:
                 #UPDATE
                 rating = Rating.objects.get(user=user.id, meal=meal.id)
@@ -51,3 +55,6 @@ class MealViewSet(viewsets.ModelViewSet):
 class RatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
+
+    authentication_classes = (TokenAuthentication, )
+    permission_classes = (IsAuthenticated, )

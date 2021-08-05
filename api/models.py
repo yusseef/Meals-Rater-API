@@ -13,7 +13,7 @@ class Meal(models.Model):
     def avg_rating(self):
         #sum of ratings / len
         sum = 0
-        ratings = Rating.objects.filter(meal=self) #number of ratings to the meal
+        ratings = Rating.objects.filter(meal=self) #number of ratings of the meal
         for x in ratings:
             sum += x.stars
         if len(ratings) > 0:
