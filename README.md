@@ -37,14 +37,6 @@ If you have any feedback, please reach out to us at yussef.raouf11@gmail.com
 ![Logo](http://ForTheBadge.com/images/badges/made-with-python.svg)
 ![Logo](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 
-## Deployment
-
-To deploy this project run
-
-```bash
-  npm run deploy
-```
-
 
 ## Demo
 
